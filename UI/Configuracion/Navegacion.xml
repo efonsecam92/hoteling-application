@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Navegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>menu</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Base/Menu/frmMenu.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>frmCRUDUsuarios</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Mantenimientos/Usuarios/frmCRUDUsuarios.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>frmMantenimientoUsuarios</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Mantenimientos/Usuarios/frmMantenimientoUsuarios.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>frmMantenimientoHabitaciones</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Mantenimientos/Habitacion/frmMantenimientoHabitaciones.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>frmCRUDHabitaciones</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Mantenimientos/Habitacion/frmCRUDHabitaciones.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>frmCRUDCompanias</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Mantenimientos/Companias/frmCRUDCompanias.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>frmMantenimientoCompanias</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Mantenimientos/Companias/frmMantenimientoCompanias.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>frmCRUDClientes</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Mantenimientos/Clientes/frmCRUDClientes.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>frmMantenimientoClientes</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Mantenimientos/Clientes/frmMantenimientoClientes.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>frmLogin</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Base/Login/frmLogin.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>frmReservacion</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Reservaciones/frmReservacion.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>frmCRUDReservacion</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Reservaciones/frmCRUDReservacion.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+  <OpcionNavegacion>
+    <opcion_nombre>frmLogin</opcion_nombre>
+    <opcion_nav_url>~/WebForms/Base/Login/frmLogin.aspx</opcion_nav_url>
+  </OpcionNavegacion>
+</Navegacion>
+
