@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SGRModelStoreContainer" CdmEntityContainer="SGREntities">
+    <EntitySetMapping Name="SGR_Clientes">
+      <EntityTypeMapping TypeName="SGRModel.SGR_Clientes">
+        <MappingFragment StoreEntitySet="SGR_Clientes">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Celular" ColumnName="Celular" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+          <ScalarProperty Name="Nombre_Completo" ColumnName="Nombre_Completo" />
+          <ScalarProperty Name="ID_Cliente" ColumnName="ID_Cliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SGR_Companias">
+      <EntityTypeMapping TypeName="SGRModel.SGR_Companias">
+        <MappingFragment StoreEntitySet="SGR_Companias">
+          <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID_Compania" ColumnName="ID_Compania" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SGR_Detalles_Estados">
+      <EntityTypeMapping TypeName="SGRModel.SGR_Detalles_Estados">
+        <MappingFragment StoreEntitySet="SGR_Detalles_Estados">
+          <ScalarProperty Name="ID_Maestro" ColumnName="ID_Maestro" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID_Detalle_Estado" ColumnName="ID_Detalle_Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SGR_Habitaciones">
+      <EntityTypeMapping TypeName="SGRModel.SGR_Habitaciones">
+        <MappingFragment StoreEntitySet="SGR_Habitaciones">
+          <ScalarProperty Name="ID_Tipo" ColumnName="ID_Tipo" />
+          <ScalarProperty Name="Cant_Camas" ColumnName="Cant_Camas" />
+          <ScalarProperty Name="ID_Compañia" ColumnName="ID_Compañia" />
+          <ScalarProperty Name="ID_Estado" ColumnName="ID_Estado" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="ID_Habitacion" ColumnName="ID_Habitacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SGR_Maestros">
+      <EntityTypeMapping TypeName="SGRModel.SGR_Maestros">
+        <MappingFragment StoreEntitySet="SGR_Maestros">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID_Maestro" ColumnName="ID_Maestro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SGR_Reservaciones">
+      <EntityTypeMapping TypeName="SGRModel.SGR_Reservaciones">
+        <MappingFragment StoreEntitySet="SGR_Reservaciones">
+          <ScalarProperty Name="Cant_Ninos" ColumnName="Cant_Ninos" />
+          <ScalarProperty Name="Cant_Adultos" ColumnName="Cant_Adultos" />
+          <ScalarProperty Name="ID_Cliente" ColumnName="ID_Cliente" />
+          <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+          <ScalarProperty Name="ID_Detalle_Estado" ColumnName="ID_Detalle_Estado" />
+          <ScalarProperty Name="Fecha_Hasta" ColumnName="Fecha_Hasta" />
+          <ScalarProperty Name="Fecha_Desde" ColumnName="Fecha_Desde" />
+          <ScalarProperty Name="ID_Reservacion" ColumnName="ID_Reservacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SGR_Reservaciones_Habitaciones">
+      <EntityTypeMapping TypeName="SGRModel.SGR_Reservaciones_Habitaciones">
+        <MappingFragment StoreEntitySet="SGR_Reservaciones_Habitaciones">
+          <ScalarProperty Name="ID_Habitacion" ColumnName="ID_Habitacion" />
+          <ScalarProperty Name="ID_Reservacion" ColumnName="ID_Reservacion" />
+          <ScalarProperty Name="ID_Reservacion_Habitacion" ColumnName="ID_Reservacion_Habitacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SGR_Usuarios">
+      <EntityTypeMapping TypeName="SGRModel.SGR_Usuarios">
+        <MappingFragment StoreEntitySet="SGR_Usuarios">
+          <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+          <ScalarProperty Name="ID_Perfil" ColumnName="ID_Perfil" />
+          <ScalarProperty Name="ID_Compañia" ColumnName="ID_Compañia" />
+          <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+          <ScalarProperty Name="Nombre_Usuario" ColumnName="Nombre_Usuario" />
+          <ScalarProperty Name="Nombre_Completo" ColumnName="Nombre_Completo" />
+          <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

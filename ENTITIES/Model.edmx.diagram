@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a61c3352632649e3b9e1bd96a54276ac" Name="Diagram1">
+        <EntityTypeShape EntityType="SGRModel.SGR_Clientes" Width="1.5" PointX="3" PointY="9.5" />
+        <EntityTypeShape EntityType="SGRModel.SGR_Companias" Width="1.5" PointX="3" PointY="1.875" />
+        <EntityTypeShape EntityType="SGRModel.SGR_Detalles_Estados" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="SGRModel.SGR_Habitaciones" Width="1.5" PointX="5.25" PointY="1.5" />
+        <EntityTypeShape EntityType="SGRModel.SGR_Maestros" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="SGRModel.SGR_Reservaciones" Width="1.5" PointX="5.25" PointY="5.25" />
+        <EntityTypeShape EntityType="SGRModel.SGR_Reservaciones_Habitaciones" Width="1.5" PointX="7.5" PointY="2" />
+        <EntityTypeShape EntityType="SGRModel.SGR_Usuarios" Width="1.5" PointX="8.25" PointY="5.25" />
+        <AssociationConnector Association="SGRModel.FK_Clientes_Reservaciones" />
+        <AssociationConnector Association="SGRModel.FK_Companias_Habitaciones" />
+        <AssociationConnector Association="SGRModel.FK_Companias_Usuarios" />
+        <AssociationConnector Association="SGRModel.FK_Detalles_Estados_Reservaciones" />
+        <AssociationConnector Association="SGRModel.FK_Detalles_Estados_Tipo_Habitaciones" />
+        <AssociationConnector Association="SGRModel.FK_Detalles_Habitaciones" />
+        <AssociationConnector Association="SGRModel.FK_Detalles_Usuarios" />
+        <AssociationConnector Association="SGRModel.FK_Maestros_Detalles" />
+        <AssociationConnector Association="SGRModel.FK_Habitaciones_Reservaciones" />
+        <AssociationConnector Association="SGRModel.FK_Reservaciones_Habitaciones" />
+        <AssociationConnector Association="SGRModel.FK_Usuarios_Reservaciones" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

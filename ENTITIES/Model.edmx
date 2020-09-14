@@ -1,0 +1,698 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SGRModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SGR_Clientes">
+          <Key>
+            <PropertyRef Name="ID_Cliente" />
+          </Key>
+          <Property Name="ID_Cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre_Completo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Identificacion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="15" />
+          <Property Name="Celular" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="50" />
+          <Property Name="Fecha_Creacion" Type="datetime" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="SGR_Companias">
+          <Key>
+            <PropertyRef Name="ID_Compania" />
+          </Key>
+          <Property Name="ID_Compania" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+          <Property Name="Fecha_Creacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SGR_Detalles_Estados">
+          <Key>
+            <PropertyRef Name="ID_Detalle_Estado" />
+          </Key>
+          <Property Name="ID_Detalle_Estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+          <Property Name="ID_Maestro" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SGR_Habitaciones">
+          <Key>
+            <PropertyRef Name="ID_Habitacion" />
+          </Key>
+          <Property Name="ID_Habitacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_Estado" Type="int" Nullable="false" />
+          <Property Name="ID_Compañia" Type="int" Nullable="false" />
+          <Property Name="Cant_Camas" Type="int" Nullable="false" />
+          <Property Name="ID_Tipo" Type="int" />
+        </EntityType>
+        <EntityType Name="SGR_Maestros">
+          <Key>
+            <PropertyRef Name="ID_Maestro" />
+          </Key>
+          <Property Name="ID_Maestro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SGR_Reservaciones">
+          <Key>
+            <PropertyRef Name="ID_Reservacion" />
+          </Key>
+          <Property Name="ID_Reservacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha_Desde" Type="datetime" Nullable="false" />
+          <Property Name="Fecha_Hasta" Type="datetime" Nullable="false" />
+          <Property Name="ID_Detalle_Estado" Type="int" Nullable="false" />
+          <Property Name="ID_Usuario" Type="int" Nullable="false" />
+          <Property Name="ID_Cliente" Type="int" />
+          <Property Name="Cant_Adultos" Type="int" Nullable="false" />
+          <Property Name="Cant_Ninos" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SGR_Reservaciones_Habitaciones">
+          <Key>
+            <PropertyRef Name="ID_Reservacion_Habitacion" />
+          </Key>
+          <Property Name="ID_Reservacion_Habitacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Reservacion" Type="int" />
+          <Property Name="ID_Habitacion" Type="int" />
+        </EntityType>
+        <EntityType Name="SGR_Usuarios">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+          </Key>
+          <Property Name="ID_Usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre_Completo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nombre_Usuario" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Identificacion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_Compañia" Type="int" Nullable="false" />
+          <Property Name="ID_Perfil" Type="int" Nullable="false" />
+          <Property Name="Fecha_Creacion" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Clientes_Reservaciones">
+          <End Role="SGR_Clientes" Type="Self.SGR_Clientes" Multiplicity="0..1" />
+          <End Role="SGR_Reservaciones" Type="Self.SGR_Reservaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Clientes">
+              <PropertyRef Name="ID_Cliente" />
+            </Principal>
+            <Dependent Role="SGR_Reservaciones">
+              <PropertyRef Name="ID_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Companias_Habitaciones">
+          <End Role="SGR_Companias" Type="Self.SGR_Companias" Multiplicity="1" />
+          <End Role="SGR_Habitaciones" Type="Self.SGR_Habitaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Companias">
+              <PropertyRef Name="ID_Compania" />
+            </Principal>
+            <Dependent Role="SGR_Habitaciones">
+              <PropertyRef Name="ID_Compañia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Companias_Usuarios">
+          <End Role="SGR_Companias" Type="Self.SGR_Companias" Multiplicity="1" />
+          <End Role="SGR_Usuarios" Type="Self.SGR_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Companias">
+              <PropertyRef Name="ID_Compania" />
+            </Principal>
+            <Dependent Role="SGR_Usuarios">
+              <PropertyRef Name="ID_Compañia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalles_Estados_Reservaciones">
+          <End Role="SGR_Detalles_Estados" Type="Self.SGR_Detalles_Estados" Multiplicity="1" />
+          <End Role="SGR_Reservaciones" Type="Self.SGR_Reservaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Detalles_Estados">
+              <PropertyRef Name="ID_Detalle_Estado" />
+            </Principal>
+            <Dependent Role="SGR_Reservaciones">
+              <PropertyRef Name="ID_Detalle_Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalles_Estados_Tipo_Habitaciones">
+          <End Role="SGR_Detalles_Estados" Type="Self.SGR_Detalles_Estados" Multiplicity="0..1" />
+          <End Role="SGR_Habitaciones" Type="Self.SGR_Habitaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Detalles_Estados">
+              <PropertyRef Name="ID_Detalle_Estado" />
+            </Principal>
+            <Dependent Role="SGR_Habitaciones">
+              <PropertyRef Name="ID_Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalles_Habitaciones">
+          <End Role="SGR_Detalles_Estados" Type="Self.SGR_Detalles_Estados" Multiplicity="1" />
+          <End Role="SGR_Habitaciones" Type="Self.SGR_Habitaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Detalles_Estados">
+              <PropertyRef Name="ID_Detalle_Estado" />
+            </Principal>
+            <Dependent Role="SGR_Habitaciones">
+              <PropertyRef Name="ID_Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalles_Usuarios">
+          <End Role="SGR_Detalles_Estados" Type="Self.SGR_Detalles_Estados" Multiplicity="1" />
+          <End Role="SGR_Usuarios" Type="Self.SGR_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Detalles_Estados">
+              <PropertyRef Name="ID_Detalle_Estado" />
+            </Principal>
+            <Dependent Role="SGR_Usuarios">
+              <PropertyRef Name="ID_Perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Habitaciones_Reservaciones">
+          <End Role="SGR_Habitaciones" Type="Self.SGR_Habitaciones" Multiplicity="0..1" />
+          <End Role="SGR_Reservaciones_Habitaciones" Type="Self.SGR_Reservaciones_Habitaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Habitaciones">
+              <PropertyRef Name="ID_Habitacion" />
+            </Principal>
+            <Dependent Role="SGR_Reservaciones_Habitaciones">
+              <PropertyRef Name="ID_Habitacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Maestros_Detalles">
+          <End Role="SGR_Maestros" Type="Self.SGR_Maestros" Multiplicity="1" />
+          <End Role="SGR_Detalles_Estados" Type="Self.SGR_Detalles_Estados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Maestros">
+              <PropertyRef Name="ID_Maestro" />
+            </Principal>
+            <Dependent Role="SGR_Detalles_Estados">
+              <PropertyRef Name="ID_Maestro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservaciones_Habitaciones">
+          <End Role="SGR_Reservaciones" Type="Self.SGR_Reservaciones" Multiplicity="0..1" />
+          <End Role="SGR_Reservaciones_Habitaciones" Type="Self.SGR_Reservaciones_Habitaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Reservaciones">
+              <PropertyRef Name="ID_Reservacion" />
+            </Principal>
+            <Dependent Role="SGR_Reservaciones_Habitaciones">
+              <PropertyRef Name="ID_Reservacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Reservaciones">
+          <End Role="SGR_Usuarios" Type="Self.SGR_Usuarios" Multiplicity="1" />
+          <End Role="SGR_Reservaciones" Type="Self.SGR_Reservaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Usuarios">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="SGR_Reservaciones">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SGRModelStoreContainer">
+          <EntitySet Name="SGR_Clientes" EntityType="Self.SGR_Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SGR_Companias" EntityType="Self.SGR_Companias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SGR_Detalles_Estados" EntityType="Self.SGR_Detalles_Estados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SGR_Habitaciones" EntityType="Self.SGR_Habitaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SGR_Maestros" EntityType="Self.SGR_Maestros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SGR_Reservaciones" EntityType="Self.SGR_Reservaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SGR_Reservaciones_Habitaciones" EntityType="Self.SGR_Reservaciones_Habitaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SGR_Usuarios" EntityType="Self.SGR_Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Clientes_Reservaciones" Association="Self.FK_Clientes_Reservaciones">
+            <End Role="SGR_Clientes" EntitySet="SGR_Clientes" />
+            <End Role="SGR_Reservaciones" EntitySet="SGR_Reservaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Companias_Habitaciones" Association="Self.FK_Companias_Habitaciones">
+            <End Role="SGR_Companias" EntitySet="SGR_Companias" />
+            <End Role="SGR_Habitaciones" EntitySet="SGR_Habitaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Companias_Usuarios" Association="Self.FK_Companias_Usuarios">
+            <End Role="SGR_Companias" EntitySet="SGR_Companias" />
+            <End Role="SGR_Usuarios" EntitySet="SGR_Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detalles_Estados_Reservaciones" Association="Self.FK_Detalles_Estados_Reservaciones">
+            <End Role="SGR_Detalles_Estados" EntitySet="SGR_Detalles_Estados" />
+            <End Role="SGR_Reservaciones" EntitySet="SGR_Reservaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detalles_Estados_Tipo_Habitaciones" Association="Self.FK_Detalles_Estados_Tipo_Habitaciones">
+            <End Role="SGR_Detalles_Estados" EntitySet="SGR_Detalles_Estados" />
+            <End Role="SGR_Habitaciones" EntitySet="SGR_Habitaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detalles_Habitaciones" Association="Self.FK_Detalles_Habitaciones">
+            <End Role="SGR_Detalles_Estados" EntitySet="SGR_Detalles_Estados" />
+            <End Role="SGR_Habitaciones" EntitySet="SGR_Habitaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detalles_Usuarios" Association="Self.FK_Detalles_Usuarios">
+            <End Role="SGR_Detalles_Estados" EntitySet="SGR_Detalles_Estados" />
+            <End Role="SGR_Usuarios" EntitySet="SGR_Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Habitaciones_Reservaciones" Association="Self.FK_Habitaciones_Reservaciones">
+            <End Role="SGR_Habitaciones" EntitySet="SGR_Habitaciones" />
+            <End Role="SGR_Reservaciones_Habitaciones" EntitySet="SGR_Reservaciones_Habitaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Maestros_Detalles" Association="Self.FK_Maestros_Detalles">
+            <End Role="SGR_Maestros" EntitySet="SGR_Maestros" />
+            <End Role="SGR_Detalles_Estados" EntitySet="SGR_Detalles_Estados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservaciones_Habitaciones" Association="Self.FK_Reservaciones_Habitaciones">
+            <End Role="SGR_Reservaciones" EntitySet="SGR_Reservaciones" />
+            <End Role="SGR_Reservaciones_Habitaciones" EntitySet="SGR_Reservaciones_Habitaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Reservaciones" Association="Self.FK_Usuarios_Reservaciones">
+            <End Role="SGR_Usuarios" EntitySet="SGR_Usuarios" />
+            <End Role="SGR_Reservaciones" EntitySet="SGR_Reservaciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SGRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SGREntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SGR_Clientes" EntityType="SGRModel.SGR_Clientes" />
+          <EntitySet Name="SGR_Companias" EntityType="SGRModel.SGR_Companias" />
+          <EntitySet Name="SGR_Detalles_Estados" EntityType="SGRModel.SGR_Detalles_Estados" />
+          <EntitySet Name="SGR_Habitaciones" EntityType="SGRModel.SGR_Habitaciones" />
+          <EntitySet Name="SGR_Maestros" EntityType="SGRModel.SGR_Maestros" />
+          <EntitySet Name="SGR_Reservaciones" EntityType="SGRModel.SGR_Reservaciones" />
+          <EntitySet Name="SGR_Reservaciones_Habitaciones" EntityType="SGRModel.SGR_Reservaciones_Habitaciones" />
+          <EntitySet Name="SGR_Usuarios" EntityType="SGRModel.SGR_Usuarios" />
+          <AssociationSet Name="FK_Clientes_Reservaciones" Association="SGRModel.FK_Clientes_Reservaciones">
+            <End Role="SGR_Clientes" EntitySet="SGR_Clientes" />
+            <End Role="SGR_Reservaciones" EntitySet="SGR_Reservaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Companias_Habitaciones" Association="SGRModel.FK_Companias_Habitaciones">
+            <End Role="SGR_Companias" EntitySet="SGR_Companias" />
+            <End Role="SGR_Habitaciones" EntitySet="SGR_Habitaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Companias_Usuarios" Association="SGRModel.FK_Companias_Usuarios">
+            <End Role="SGR_Companias" EntitySet="SGR_Companias" />
+            <End Role="SGR_Usuarios" EntitySet="SGR_Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detalles_Estados_Reservaciones" Association="SGRModel.FK_Detalles_Estados_Reservaciones">
+            <End Role="SGR_Detalles_Estados" EntitySet="SGR_Detalles_Estados" />
+            <End Role="SGR_Reservaciones" EntitySet="SGR_Reservaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detalles_Estados_Tipo_Habitaciones" Association="SGRModel.FK_Detalles_Estados_Tipo_Habitaciones">
+            <End Role="SGR_Detalles_Estados" EntitySet="SGR_Detalles_Estados" />
+            <End Role="SGR_Habitaciones" EntitySet="SGR_Habitaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detalles_Habitaciones" Association="SGRModel.FK_Detalles_Habitaciones">
+            <End Role="SGR_Detalles_Estados" EntitySet="SGR_Detalles_Estados" />
+            <End Role="SGR_Habitaciones" EntitySet="SGR_Habitaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Detalles_Usuarios" Association="SGRModel.FK_Detalles_Usuarios">
+            <End Role="SGR_Detalles_Estados" EntitySet="SGR_Detalles_Estados" />
+            <End Role="SGR_Usuarios" EntitySet="SGR_Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Maestros_Detalles" Association="SGRModel.FK_Maestros_Detalles">
+            <End Role="SGR_Maestros" EntitySet="SGR_Maestros" />
+            <End Role="SGR_Detalles_Estados" EntitySet="SGR_Detalles_Estados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Habitaciones_Reservaciones" Association="SGRModel.FK_Habitaciones_Reservaciones">
+            <End Role="SGR_Habitaciones" EntitySet="SGR_Habitaciones" />
+            <End Role="SGR_Reservaciones_Habitaciones" EntitySet="SGR_Reservaciones_Habitaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservaciones_Habitaciones" Association="SGRModel.FK_Reservaciones_Habitaciones">
+            <End Role="SGR_Reservaciones" EntitySet="SGR_Reservaciones" />
+            <End Role="SGR_Reservaciones_Habitaciones" EntitySet="SGR_Reservaciones_Habitaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Reservaciones" Association="SGRModel.FK_Usuarios_Reservaciones">
+            <End Role="SGR_Usuarios" EntitySet="SGR_Usuarios" />
+            <End Role="SGR_Reservaciones" EntitySet="SGR_Reservaciones" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="SGR_Clientes">
+          <Key>
+            <PropertyRef Name="ID_Cliente" />
+          </Key>
+          <Property Name="ID_Cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_Completo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Identificacion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Celular" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_Creacion" Type="DateTime" Precision="3" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="SGR_Reservaciones" Relationship="SGRModel.FK_Clientes_Reservaciones" FromRole="SGR_Clientes" ToRole="SGR_Reservaciones" />
+        </EntityType>
+        <EntityType Name="SGR_Companias">
+          <Key>
+            <PropertyRef Name="ID_Compania" />
+          </Key>
+          <Property Name="ID_Compania" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="Fecha_Creacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SGR_Habitaciones" Relationship="SGRModel.FK_Companias_Habitaciones" FromRole="SGR_Companias" ToRole="SGR_Habitaciones" />
+          <NavigationProperty Name="SGR_Usuarios" Relationship="SGRModel.FK_Companias_Usuarios" FromRole="SGR_Companias" ToRole="SGR_Usuarios" />
+        </EntityType>
+        <EntityType Name="SGR_Detalles_Estados">
+          <Key>
+            <PropertyRef Name="ID_Detalle_Estado" />
+          </Key>
+          <Property Name="ID_Detalle_Estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="ID_Maestro" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SGR_Reservaciones" Relationship="SGRModel.FK_Detalles_Estados_Reservaciones" FromRole="SGR_Detalles_Estados" ToRole="SGR_Reservaciones" />
+          <NavigationProperty Name="SGR_Habitaciones" Relationship="SGRModel.FK_Detalles_Estados_Tipo_Habitaciones" FromRole="SGR_Detalles_Estados" ToRole="SGR_Habitaciones" />
+          <NavigationProperty Name="SGR_Habitaciones1" Relationship="SGRModel.FK_Detalles_Habitaciones" FromRole="SGR_Detalles_Estados" ToRole="SGR_Habitaciones" />
+          <NavigationProperty Name="SGR_Usuarios" Relationship="SGRModel.FK_Detalles_Usuarios" FromRole="SGR_Detalles_Estados" ToRole="SGR_Usuarios" />
+          <NavigationProperty Name="SGR_Maestros" Relationship="SGRModel.FK_Maestros_Detalles" FromRole="SGR_Detalles_Estados" ToRole="SGR_Maestros" />
+        </EntityType>
+        <EntityType Name="SGR_Habitaciones">
+          <Key>
+            <PropertyRef Name="ID_Habitacion" />
+          </Key>
+          <Property Name="ID_Habitacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Estado" Type="Int32" Nullable="false" />
+          <Property Name="ID_Compañia" Type="Int32" Nullable="false" />
+          <Property Name="Cant_Camas" Type="Int32" Nullable="false" />
+          <Property Name="ID_Tipo" Type="Int32" />
+          <NavigationProperty Name="SGR_Companias" Relationship="SGRModel.FK_Companias_Habitaciones" FromRole="SGR_Habitaciones" ToRole="SGR_Companias" />
+          <NavigationProperty Name="SGR_Detalles_Estados" Relationship="SGRModel.FK_Detalles_Estados_Tipo_Habitaciones" FromRole="SGR_Habitaciones" ToRole="SGR_Detalles_Estados" />
+          <NavigationProperty Name="SGR_Detalles_Estados1" Relationship="SGRModel.FK_Detalles_Habitaciones" FromRole="SGR_Habitaciones" ToRole="SGR_Detalles_Estados" />
+          <NavigationProperty Name="SGR_Reservaciones_Habitaciones" Relationship="SGRModel.FK_Habitaciones_Reservaciones" FromRole="SGR_Habitaciones" ToRole="SGR_Reservaciones_Habitaciones" />
+        </EntityType>
+        <EntityType Name="SGR_Maestros">
+          <Key>
+            <PropertyRef Name="ID_Maestro" />
+          </Key>
+          <Property Name="ID_Maestro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SGR_Detalles_Estados" Relationship="SGRModel.FK_Maestros_Detalles" FromRole="SGR_Maestros" ToRole="SGR_Detalles_Estados" />
+        </EntityType>
+        <EntityType Name="SGR_Reservaciones">
+          <Key>
+            <PropertyRef Name="ID_Reservacion" />
+          </Key>
+          <Property Name="ID_Reservacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_Desde" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Fecha_Hasta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ID_Detalle_Estado" Type="Int32" Nullable="false" />
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="ID_Cliente" Type="Int32" />
+          <Property Name="Cant_Adultos" Type="Int32" Nullable="false" />
+          <Property Name="Cant_Ninos" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SGR_Clientes" Relationship="SGRModel.FK_Clientes_Reservaciones" FromRole="SGR_Reservaciones" ToRole="SGR_Clientes" />
+          <NavigationProperty Name="SGR_Detalles_Estados" Relationship="SGRModel.FK_Detalles_Estados_Reservaciones" FromRole="SGR_Reservaciones" ToRole="SGR_Detalles_Estados" />
+          <NavigationProperty Name="SGR_Reservaciones_Habitaciones" Relationship="SGRModel.FK_Reservaciones_Habitaciones" FromRole="SGR_Reservaciones" ToRole="SGR_Reservaciones_Habitaciones" />
+          <NavigationProperty Name="SGR_Usuarios" Relationship="SGRModel.FK_Usuarios_Reservaciones" FromRole="SGR_Reservaciones" ToRole="SGR_Usuarios" />
+        </EntityType>
+        <EntityType Name="SGR_Reservaciones_Habitaciones">
+          <Key>
+            <PropertyRef Name="ID_Reservacion_Habitacion" />
+          </Key>
+          <Property Name="ID_Reservacion_Habitacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Reservacion" Type="Int32" />
+          <Property Name="ID_Habitacion" Type="Int32" />
+          <NavigationProperty Name="SGR_Habitaciones" Relationship="SGRModel.FK_Habitaciones_Reservaciones" FromRole="SGR_Reservaciones_Habitaciones" ToRole="SGR_Habitaciones" />
+          <NavigationProperty Name="SGR_Reservaciones" Relationship="SGRModel.FK_Reservaciones_Habitaciones" FromRole="SGR_Reservaciones_Habitaciones" ToRole="SGR_Reservaciones" />
+        </EntityType>
+        <EntityType Name="SGR_Usuarios">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+          </Key>
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_Completo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre_Usuario" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Identificacion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="Contrasena" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Compañia" Type="Int32" Nullable="false" />
+          <Property Name="ID_Perfil" Type="Int32" Nullable="false" />
+          <Property Name="Fecha_Creacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SGR_Companias" Relationship="SGRModel.FK_Companias_Usuarios" FromRole="SGR_Usuarios" ToRole="SGR_Companias" />
+          <NavigationProperty Name="SGR_Detalles_Estados" Relationship="SGRModel.FK_Detalles_Usuarios" FromRole="SGR_Usuarios" ToRole="SGR_Detalles_Estados" />
+          <NavigationProperty Name="SGR_Reservaciones" Relationship="SGRModel.FK_Usuarios_Reservaciones" FromRole="SGR_Usuarios" ToRole="SGR_Reservaciones" />
+        </EntityType>
+        <Association Name="FK_Clientes_Reservaciones">
+          <End Type="SGRModel.SGR_Clientes" Role="SGR_Clientes" Multiplicity="0..1" />
+          <End Type="SGRModel.SGR_Reservaciones" Role="SGR_Reservaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Clientes">
+              <PropertyRef Name="ID_Cliente" />
+            </Principal>
+            <Dependent Role="SGR_Reservaciones">
+              <PropertyRef Name="ID_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Companias_Habitaciones">
+          <End Type="SGRModel.SGR_Companias" Role="SGR_Companias" Multiplicity="1" />
+          <End Type="SGRModel.SGR_Habitaciones" Role="SGR_Habitaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Companias">
+              <PropertyRef Name="ID_Compania" />
+            </Principal>
+            <Dependent Role="SGR_Habitaciones">
+              <PropertyRef Name="ID_Compañia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Companias_Usuarios">
+          <End Type="SGRModel.SGR_Companias" Role="SGR_Companias" Multiplicity="1" />
+          <End Type="SGRModel.SGR_Usuarios" Role="SGR_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Companias">
+              <PropertyRef Name="ID_Compania" />
+            </Principal>
+            <Dependent Role="SGR_Usuarios">
+              <PropertyRef Name="ID_Compañia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalles_Estados_Reservaciones">
+          <End Type="SGRModel.SGR_Detalles_Estados" Role="SGR_Detalles_Estados" Multiplicity="1" />
+          <End Type="SGRModel.SGR_Reservaciones" Role="SGR_Reservaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Detalles_Estados">
+              <PropertyRef Name="ID_Detalle_Estado" />
+            </Principal>
+            <Dependent Role="SGR_Reservaciones">
+              <PropertyRef Name="ID_Detalle_Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalles_Estados_Tipo_Habitaciones">
+          <End Type="SGRModel.SGR_Detalles_Estados" Role="SGR_Detalles_Estados" Multiplicity="0..1" />
+          <End Type="SGRModel.SGR_Habitaciones" Role="SGR_Habitaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Detalles_Estados">
+              <PropertyRef Name="ID_Detalle_Estado" />
+            </Principal>
+            <Dependent Role="SGR_Habitaciones">
+              <PropertyRef Name="ID_Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalles_Habitaciones">
+          <End Type="SGRModel.SGR_Detalles_Estados" Role="SGR_Detalles_Estados" Multiplicity="1" />
+          <End Type="SGRModel.SGR_Habitaciones" Role="SGR_Habitaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Detalles_Estados">
+              <PropertyRef Name="ID_Detalle_Estado" />
+            </Principal>
+            <Dependent Role="SGR_Habitaciones">
+              <PropertyRef Name="ID_Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalles_Usuarios">
+          <End Type="SGRModel.SGR_Detalles_Estados" Role="SGR_Detalles_Estados" Multiplicity="1" />
+          <End Type="SGRModel.SGR_Usuarios" Role="SGR_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Detalles_Estados">
+              <PropertyRef Name="ID_Detalle_Estado" />
+            </Principal>
+            <Dependent Role="SGR_Usuarios">
+              <PropertyRef Name="ID_Perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Maestros_Detalles">
+          <End Type="SGRModel.SGR_Maestros" Role="SGR_Maestros" Multiplicity="1" />
+          <End Type="SGRModel.SGR_Detalles_Estados" Role="SGR_Detalles_Estados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Maestros">
+              <PropertyRef Name="ID_Maestro" />
+            </Principal>
+            <Dependent Role="SGR_Detalles_Estados">
+              <PropertyRef Name="ID_Maestro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Habitaciones_Reservaciones">
+          <End Type="SGRModel.SGR_Habitaciones" Role="SGR_Habitaciones" Multiplicity="0..1" />
+          <End Type="SGRModel.SGR_Reservaciones_Habitaciones" Role="SGR_Reservaciones_Habitaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Habitaciones">
+              <PropertyRef Name="ID_Habitacion" />
+            </Principal>
+            <Dependent Role="SGR_Reservaciones_Habitaciones">
+              <PropertyRef Name="ID_Habitacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservaciones_Habitaciones">
+          <End Type="SGRModel.SGR_Reservaciones" Role="SGR_Reservaciones" Multiplicity="0..1" />
+          <End Type="SGRModel.SGR_Reservaciones_Habitaciones" Role="SGR_Reservaciones_Habitaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Reservaciones">
+              <PropertyRef Name="ID_Reservacion" />
+            </Principal>
+            <Dependent Role="SGR_Reservaciones_Habitaciones">
+              <PropertyRef Name="ID_Reservacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Reservaciones">
+          <End Type="SGRModel.SGR_Usuarios" Role="SGR_Usuarios" Multiplicity="1" />
+          <End Type="SGRModel.SGR_Reservaciones" Role="SGR_Reservaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SGR_Usuarios">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="SGR_Reservaciones">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SGRModelStoreContainer" CdmEntityContainer="SGREntities">
+          <EntitySetMapping Name="SGR_Clientes">
+            <EntityTypeMapping TypeName="SGRModel.SGR_Clientes">
+              <MappingFragment StoreEntitySet="SGR_Clientes">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Nombre_Completo" ColumnName="Nombre_Completo" />
+                <ScalarProperty Name="ID_Cliente" ColumnName="ID_Cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SGR_Companias">
+            <EntityTypeMapping TypeName="SGRModel.SGR_Companias">
+              <MappingFragment StoreEntitySet="SGR_Companias">
+                <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_Compania" ColumnName="ID_Compania" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SGR_Detalles_Estados">
+            <EntityTypeMapping TypeName="SGRModel.SGR_Detalles_Estados">
+              <MappingFragment StoreEntitySet="SGR_Detalles_Estados">
+                <ScalarProperty Name="ID_Maestro" ColumnName="ID_Maestro" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_Detalle_Estado" ColumnName="ID_Detalle_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SGR_Habitaciones">
+            <EntityTypeMapping TypeName="SGRModel.SGR_Habitaciones">
+              <MappingFragment StoreEntitySet="SGR_Habitaciones">
+                <ScalarProperty Name="ID_Tipo" ColumnName="ID_Tipo" />
+                <ScalarProperty Name="Cant_Camas" ColumnName="Cant_Camas" />
+                <ScalarProperty Name="ID_Compañia" ColumnName="ID_Compañia" />
+                <ScalarProperty Name="ID_Estado" ColumnName="ID_Estado" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="ID_Habitacion" ColumnName="ID_Habitacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SGR_Maestros">
+            <EntityTypeMapping TypeName="SGRModel.SGR_Maestros">
+              <MappingFragment StoreEntitySet="SGR_Maestros">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_Maestro" ColumnName="ID_Maestro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SGR_Reservaciones">
+            <EntityTypeMapping TypeName="SGRModel.SGR_Reservaciones">
+              <MappingFragment StoreEntitySet="SGR_Reservaciones">
+                <ScalarProperty Name="Cant_Ninos" ColumnName="Cant_Ninos" />
+                <ScalarProperty Name="Cant_Adultos" ColumnName="Cant_Adultos" />
+                <ScalarProperty Name="ID_Cliente" ColumnName="ID_Cliente" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_Detalle_Estado" ColumnName="ID_Detalle_Estado" />
+                <ScalarProperty Name="Fecha_Hasta" ColumnName="Fecha_Hasta" />
+                <ScalarProperty Name="Fecha_Desde" ColumnName="Fecha_Desde" />
+                <ScalarProperty Name="ID_Reservacion" ColumnName="ID_Reservacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SGR_Reservaciones_Habitaciones">
+            <EntityTypeMapping TypeName="SGRModel.SGR_Reservaciones_Habitaciones">
+              <MappingFragment StoreEntitySet="SGR_Reservaciones_Habitaciones">
+                <ScalarProperty Name="ID_Habitacion" ColumnName="ID_Habitacion" />
+                <ScalarProperty Name="ID_Reservacion" ColumnName="ID_Reservacion" />
+                <ScalarProperty Name="ID_Reservacion_Habitacion" ColumnName="ID_Reservacion_Habitacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SGR_Usuarios">
+            <EntityTypeMapping TypeName="SGRModel.SGR_Usuarios">
+              <MappingFragment StoreEntitySet="SGR_Usuarios">
+                <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+                <ScalarProperty Name="ID_Perfil" ColumnName="ID_Perfil" />
+                <ScalarProperty Name="ID_Compañia" ColumnName="ID_Compañia" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Nombre_Usuario" ColumnName="Nombre_Usuario" />
+                <ScalarProperty Name="Nombre_Completo" ColumnName="Nombre_Completo" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
