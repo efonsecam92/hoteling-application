@@ -1,2 +1,4 @@
 # hoteling-application
-Hoteling Application Reservations
+* Hoteling Application Reservations
+* .Net
+* SQL Server
